@@ -1,0 +1,24 @@
+Join to our public Chat.
+
+https://chat.whatsapp.com/BdGaVgmgNO8CRjgJS0O3ym
+
+Create the requirements document for your app
+
+Stract your use cases. 
+
+Identify your core cases.
+
+Create your github account.
+
+Create your repository.
+
+Create a project on the repository (sprint).
+
+Create the columns of the project (states of histories)
+
+Create as issue or notes your use cases 
+
+Create a Vs Code >= 2.0 Solution and upload to the repository
+
+Add the scafolded item Identity, to work with authentication
+
