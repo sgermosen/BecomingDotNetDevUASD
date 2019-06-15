@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{F293
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{3BC72160-1091-4B5B-A54A-E6518C588875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcCoach.Web", "EcCoach.Web\EcCoach.Web.csproj", "{9D930290-7594-480A-AE25-7132F204D541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcCoach.Web", "EcCoach.Web\EcCoach.Web.csproj", "{9D930290-7594-480A-AE25-7132F204D541}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{37E624A9-7189-41DB-85B3-6091B49597CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

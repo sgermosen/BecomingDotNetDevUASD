@@ -11,7 +11,9 @@ namespace EcCoach.Web.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index()
+
         {
+            ViewBag.Msg = "hi ";
             return View();
         }
 
