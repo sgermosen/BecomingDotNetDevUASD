@@ -22,3 +22,5 @@ Create a Vs Code >= 2.0 Solution and upload to the repository
 
 Add the scafolded item Identity, to work with authentication
 
+Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
+
