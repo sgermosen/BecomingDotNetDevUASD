@@ -2,25 +2,25 @@ Join to our public Chat.
 
 https://chat.whatsapp.com/BdGaVgmgNO8CRjgJS0O3ym
 
-Create the requirements document for your app
+Create the "Requirements document" for your app (check mine as guide)
 
-Stract your use cases. 
+Extract your "Use Cases" 
 
-Identify your core cases.
+Identify your "Core Cases".
 
-Create your github account.
+Create your github account, follow the teacher and fork their repos :D
 
-Create your repository.
+Create your "Repository" 
 
-Create a project on the repository (sprint).
+Create a "Project ON the repository" (sprint).
 
-Create the columns of the project (states of histories)
+Create the "Columns of the project" (states of histories)
 
-Create as issue or notes your use cases 
+Create as "Issue or Notes" your "Use Cases"
 
-Create a Vs Code >= 2.0 Solution and upload to the repository
+Create a Vs Code >= 2.0 Solution and upload it to the repository.
 
-Add the scafolded item Identity, to work with authentication
+Add the scafolded item "Identity", to work with authentication
 
 Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
 
