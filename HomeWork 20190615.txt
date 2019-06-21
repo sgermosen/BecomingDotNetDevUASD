@@ -23,6 +23,8 @@ Create as "Issue or Notes" your "Use Cases"
 
 Create a Vs Code >= 2.0 Solution and upload it to the repository.
 
-Add the scafolded item "Identity", to work with authentication
+Add the scafolded item "Identity", to work with authentication.
+
+Add your first migration and test it!!
 
 
