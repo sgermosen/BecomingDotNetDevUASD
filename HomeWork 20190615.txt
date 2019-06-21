@@ -1,3 +1,6 @@
+
+Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
+
 Join to our public Chat.
 
 https://chat.whatsapp.com/BdGaVgmgNO8CRjgJS0O3ym
@@ -22,5 +25,4 @@ Create a Vs Code >= 2.0 Solution and upload it to the repository.
 
 Add the scafolded item "Identity", to work with authentication
 
-Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
 
