@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EcCoach.Web.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using EcCoach.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace EcCoach.Web.Models
+namespace EcCoach.Web.Data
 {
     public class DataContext : IdentityDbContext<ApplicationUser>
     {
@@ -15,6 +10,13 @@ namespace EcCoach.Web.Models
             : base(options)
         {
         }
+
+        #region Properties for the Database
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<Type> Types { get; set; }
+        #endregion
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

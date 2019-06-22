@@ -4,14 +4,16 @@ using EcCoach.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcCoach.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190622151418_EventModel")]
+    partial class EventModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,18 +78,15 @@ namespace EcCoach.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CoachId")
-                        .IsRequired();
+                    b.Property<string>("CoachId");
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<short?>("MaxCapacity");
+                    b.Property<short>("MaxCapacity");
 
-                    b.Property<int>("TypeId");
+                    b.Property<int?>("TypeId");
 
-                    b.Property<string>("Venue")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Venue");
 
                     b.HasKey("Id");
 
@@ -104,9 +103,7 @@ namespace EcCoach.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -231,13 +228,11 @@ namespace EcCoach.Web.Migrations
                 {
                     b.HasOne("EcCoach.Web.Data.ApplicationUser", "Coach")
                         .WithMany()
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CoachId");
 
                     b.HasOne("EcCoach.Web.Models.Type", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TypeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

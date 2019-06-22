@@ -11,7 +11,7 @@ When the user follow an coach their upcoming events need to be visible on his fe
 
 _Autentication
 Sign Up					***		
-Login					**
+Login					***
 Log Out
 Change Password
 Edit profile
@@ -34,7 +34,18 @@ _Following
 Follow a Coach				***
 Unfollow a Coach
 Who I’m following			**
-Event feed based on who I’M following
+Event feed based on who I’M following 	
+
+
+Domains
+
+_Event
+Coach
+DateTime
+Type
+Address
+MaxCapacity
+
 
 
  
