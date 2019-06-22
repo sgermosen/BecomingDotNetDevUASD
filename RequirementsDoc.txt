@@ -37,14 +37,19 @@ Who I’m following			**
 Event feed based on who I’M following 	
 
 
-Domains
+Domain/Database
 
 _Event
-Coach
+Coach (User)
 DateTime
 Type
 Address
+Latitude
+Longitude
 MaxCapacity
+
+_Type
+Name
 
 
 

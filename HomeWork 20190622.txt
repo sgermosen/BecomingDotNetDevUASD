@@ -1,0 +1,11 @@
+*Create the models for your base entities. (if you're so excited you can complete all your models)
+
+*Add Data Anotations to make their restrictions.
+
+*Modify the _Layout to have a best look and field.
+
+*Pass to: pending, working and finish your worked histories (ToDo, In Progress, Done).
+
+
+
+

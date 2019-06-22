@@ -11,7 +11,7 @@ namespace EcCoach.Web.Data
         {
         }
 
-        #region Properties for the Database
+        #region Properties to become tables on databases
         public DbSet<Event> Events { get; set; }
 
         public DbSet<Type> Types { get; set; }
