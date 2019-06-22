@@ -1,0 +1,44 @@
+
+Requirements
+
+Coaching Events is a mini social network for communicate coach with their followers, with the objective than they go to their conferences, like an event social network, need to be possible list the events, than on the creation moment required a date, type and location. 
+
+The coach need to have a page where can edit, delete and obviously add an event to the list.
+
+The followers and lovers of this kind of events, can follow their favorites coachs, and receive a notification when their favorites coach add or modify an event.
+Users need to have the possibility to search upcoming events by coach, type and location to add it to their activity calendar.
+When the user follow an coach their upcoming events need to be visible on his feed.
+
+_Autentication
+Sign Up					***		
+Login					**
+Log Out
+Change Password
+Edit profile
+
+_Events
+Add an Event				***
+My upcoming events
+Edit an Event
+Delete an Event
+View all upcoming events		**
+Search Events
+View Events Details
+
+_Calendar
+Add Event to a Calendar			***
+Remove Event From calendar
+View Events than I’m attending for	**
+
+_Following
+Follow a Coach				***
+Unfollow a Coach
+Who I’m following			**
+Event feed based on who I’M following
+
+
+ 
+
+
+
+
