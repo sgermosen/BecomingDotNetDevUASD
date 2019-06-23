@@ -1,30 +1,28 @@
 
-Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
+*Read the "Becoming a dotNet developer using netCore Notes.pdf" from page # 1 to page # 47
 
-Join to our public Chat.
+*Join to our public Chat: https://chat.whatsapp.com/BdGaVgmgNO8CRjgJS0O3ym
 
-https://chat.whatsapp.com/BdGaVgmgNO8CRjgJS0O3ym
+*Create the "Requirements document" for your app (check mine as guide)
 
-Create the "Requirements document" for your app (check mine as guide)
+*Extract your "Use Cases" 
 
-Extract your "Use Cases" 
+*Identify your "Core Cases".
 
-Identify your "Core Cases".
+*Create your github account, follow the teacher and fork their repos :D
 
-Create your github account, follow the teacher and fork their repos :D
+*Create your "Repository" 
 
-Create your "Repository" 
+*Create a "Project ON the repository" (sprint).
 
-Create a "Project ON the repository" (sprint).
+*Create the "Columns of the project" (states of histories)
 
-Create the "Columns of the project" (states of histories)
+*Create as "Issue or Notes" your "Use Cases"
 
-Create as "Issue or Notes" your "Use Cases"
+*Create a Vs Code >= 2.0 Solution and upload it to the repository.
 
-Create a Vs Code >= 2.0 Solution and upload it to the repository.
+*Add the scafolded item "Identity", to work with authentication.
 
-Add the scafolded item "Identity", to work with authentication.
-
-Add your first migration and test it!!
+*Add your first migration and test it!!
 
 
