@@ -1,0 +1,17 @@
+
+*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 48 to page # 72.
+
+*Create a new branch for development.
+
+*Create the controller and the view for create (fully functional).
+	-Note: The data for the view need to come from the model, and be stored once.
+
+*Merge the "development" branch into "master" branch.
+
+*Close your done job in github.
+
+
+
+ 
+
+

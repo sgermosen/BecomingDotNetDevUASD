@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using EcCoach.Web.Data;
+﻿using EcCoach.Web.Data;
 using EcCoach.Web.Models;
 using EcCoach.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using System.Security.Claims;
 
 namespace EcCoach.Web.Controllers
 {
