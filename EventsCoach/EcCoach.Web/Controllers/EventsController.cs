@@ -25,9 +25,7 @@ namespace EcCoach.Web.Controllers
         // [HttpGet]
         public IActionResult Create()
         {
-            var types = _context.Types.ToList();
-
-            ViewBag.TypeList = new SelectList(types, "Id", "Name");
+             
 
 
 
