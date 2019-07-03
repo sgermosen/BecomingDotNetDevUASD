@@ -1,7 +1,6 @@
 ﻿using EcCoach.Web.Data;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcCoach.Web.Models
 {
@@ -19,6 +18,7 @@ namespace EcCoach.Web.Models
 
         [Required]
         public int TypeId { get; set; }
+       
         //[ForeignKey("TypeId")]
         public Type Type { get; set; }
 
@@ -29,7 +29,7 @@ namespace EcCoach.Web.Models
         public long Longitude { get; set; }
 
         public long Latitude { get; set; }
-        
+
         public short? MaxCapacity { get; set; }
 
     }
