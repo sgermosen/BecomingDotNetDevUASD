@@ -1,5 +1,5 @@
 
-*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 48 to page # 72.
+*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 54 to page # 80.
 
 *Create a new branch for development.
 
