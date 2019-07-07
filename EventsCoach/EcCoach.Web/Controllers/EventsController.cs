@@ -45,7 +45,7 @@ namespace EcCoach.Web.Controllers
                 {
                     CoachId = userId,
                     Venue = vm.Venue,
-                    DateTime = vm.FullDate,
+                    DateTime = vm.GetFullDate(),
                     Latitude = 0,
                     Longitude = 0,
                     TypeId = vm.TypeId,

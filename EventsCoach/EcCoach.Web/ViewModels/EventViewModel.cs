@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcCoach.Web.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EcCoach.Web.ViewModels
@@ -12,15 +13,14 @@ namespace EcCoach.Web.ViewModels
         [StringLength(100, MinimumLength = 5)]
         public string Venue { get; set; }
 
+        [FutureDate]
         public string Date { get; set; }
 
         public string Time { get; set; }
 
-        public DateTime FullDate
+        public DateTime GetFullDate()
         {
-            get {
-                return DateTime.Parse($"{Date} {Time}");
-            }
+                return DateTime.Parse($"{Date} {Time}");            
         }
 
         //public long Longitude { get; set; }
