@@ -1,0 +1,16 @@
+
+*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 81 to page # 101.
+
+*Create a new issue for the needs of create a custom data anotation for date or whatever you want. (doesnt matter if theres one than make the same thing)
+
+*Complete the creation of this in a new Branch.
+
+*Close the issue and merge the created branche into developer once, then destroy it.
+
+
+
+
+
+ 
+
+
