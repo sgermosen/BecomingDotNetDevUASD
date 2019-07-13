@@ -5,6 +5,10 @@
 
 *Complete the creation of this in a new Branch.
 
+*Add spans or indicator to show the validations errors on the model.
+
+*Make the client site validations.
+
 *Close the issue and merge the created branche into developer once, then destroy it.
 
 
