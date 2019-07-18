@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EcCoach.Web</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -15,11 +17,14 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href="~/css/MyStyles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bgorange border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EcCoach.Web</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,26 +33,39 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link " asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link " asp-controller="Events" asp-action="Create">Add New Event</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Events" asp-action="Create">Add New Event</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity"
+                            <a class="nav-link " asp-area="Identity"
                                asp-page="/Account/Login">Login</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link "
                                asp-area="Identity"
                                asp-controller="Pages" asp-action="Login">
                                 Access
                             </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="Events" asp-action="Create">Add New Event</a>
+                                <a class="dropdown-item" href="#">Events I'm Going</a>
+                                <a class="dropdown-item" href="#">Coach I'm Following</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">
+                                    Close Session/Exit
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

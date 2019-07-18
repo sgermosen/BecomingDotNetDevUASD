@@ -1,0 +1,14 @@
+
+*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 102 to page # 149.
+
+*Choose a color for your application, then explain why (I mean, the color need to have a real meaning or porpose).
+
+
+
+
+
+
+
+ 
+
+

@@ -42,8 +42,11 @@ namespace EcCoach.Web.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            public string Name { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -67,7 +70,11 @@ namespace EcCoach.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Name= Input.Name
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
