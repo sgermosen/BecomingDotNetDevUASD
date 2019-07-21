@@ -20,6 +20,11 @@ namespace EcCoach.Web.Controllers
             _context = context;
         }
 
+        [Authorize]
+        public ActionResult Following()
+        {
+            return View();
+        }
 
         [Authorize]
         public ActionResult Attending()
@@ -36,31 +41,32 @@ namespace EcCoach.Web.Controllers
             var vm = new EventsViewModel
             {
                 UpcomingEvents = events,
-                ShowActions = User.Identity.IsAuthenticated
-            };
-
-            return View(vm);
-
-        }
-
-        public IActionResult MyEvents()
-        {
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var upcomingEvents = _context.Events
-                .Include(c => c.Coach)
-                .Include(c => c.Type)
-                .Where(p => p.DateTime >= DateTime.Now && p.CoachId == userId).ToList();
-
-            var vm = new EventsViewModel
-            {
-                UpcomingEvents = upcomingEvents,
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "My Events"
+                Heading = "Events I'm Attending"
             };
 
             return View("Events", vm);
+
         }
+
+        //public IActionResult MyEvents()
+        //{
+
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var upcomingEvents = _context.Events
+        //        .Include(c => c.Coach)
+        //        .Include(c => c.Type)
+        //        .Where(p => p.DateTime >= DateTime.Now && p.CoachId == userId).ToList();
+
+        //    var vm = new EventsViewModel
+        //    {
+        //        UpcomingEvents = upcomingEvents,
+        //        ShowActions = User.Identity.IsAuthenticated,
+        //        Heading = "My Events"
+        //    };
+
+        //    return View("Events", vm);
+        //}
 
         [Authorize]
         // [HttpGet]

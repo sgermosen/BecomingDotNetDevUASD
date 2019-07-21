@@ -40,36 +40,37 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-controller="Events" asp-action="Create">Add New Event</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-controller="Events" asp-action="MyEvents">My Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="Identity"
-                               asp-page="/Account/Login">Login</a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link "
-                               asp-area="Identity"
-                               asp-controller="Pages" asp-action="Login">
-                                Access
-                            </a>
-                        </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @User.Identity.Name
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Events" asp-action="Create">Add New Event</a>
-                                <a class="dropdown-item" href="#">Events I'm Going</a>
-                                <a class="dropdown-item" href="#">Coach I'm Following</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">
-                                    Close Session/Exit
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown ml-auto">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @User.Identity.Name
                                 </a>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" asp-controller="Events" asp-action="Attending">Events I'm Going</a>
+                                    <a class="dropdown-item" asp-controller="Events" asp-action="Following">Coach I'm Following</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index","Home", new { area = "" })" method="post">
+                                        <button type="submit" class="dropdown-item"> Close Session/Exit</button>
+                                    </form>
+
+
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="Identity"
+                                   asp-page="/Account/Login">Login</a>
+                            </li>
+                        }
+
+
                     </ul>
                 </div>
             </div>

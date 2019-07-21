@@ -1,0 +1,12 @@
+*Update the requirements document for include the color representation and home aspect, then update the domain.
+
+*Completed the following process, create a Model, Api, Fluent Validation and so on, for it.
+
+*Changed MyEvents action to Attending, because make more sense.
+
+*Fix the logout problem.
+
+*Add than the name only be visible if im logged
+
+*Align the email to right using "ml-auto" class
+
