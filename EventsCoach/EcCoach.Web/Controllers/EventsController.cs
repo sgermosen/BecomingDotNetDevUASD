@@ -20,6 +20,29 @@ namespace EcCoach.Web.Controllers
             _context = context;
         }
 
+
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var events = _context.Attendances
+            .Where(a => a.AttendeeId == userId)
+            .Select(a => a.Event)
+            .Include(p => p.Type)
+            .Include(p => p.Coach)
+            .ToList();
+
+            var vm = new EventsViewModel
+            {
+                UpcomingEvents = events,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View(vm);
+
+        }
+
         public IActionResult MyEvents()
         {
 

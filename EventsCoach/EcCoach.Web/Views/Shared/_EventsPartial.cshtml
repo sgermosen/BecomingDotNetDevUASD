@@ -27,6 +27,9 @@
                     <button data-event-id="@item.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">
                         Going?
                     </button>
+                    <button data-user-id="@item.CoachId" asp-route-id="@item.CoachId" class="btn btn-default btn-sm pull-right js-toggle-follow">
+                        Follow
+                    </button>
                 }
 
             </div>

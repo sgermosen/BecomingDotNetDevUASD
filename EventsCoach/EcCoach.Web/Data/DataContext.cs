@@ -18,6 +18,9 @@ namespace EcCoach.Web.Data
         public DbSet<Type> Types { get; set; }
 
         public DbSet<Attendance> Attendances { get; set; }
+
+        public DbSet<Following> Followings { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -38,6 +41,19 @@ namespace EcCoach.Web.Data
             .HasOne(a => a.Attendee)
             .WithMany()
             .HasForeignKey(a => a.AttendeeId) ; //.
+
+           
+            builder.Entity<Following>().HasKey(p => new { p.FolloweeId, p.FollowerId });
+
+            builder.Entity<Following>()
+                    .HasOne(a => a.Follower)
+                    .WithMany(c => c.Followers)
+                    .HasForeignKey(a => a.FollowerId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Following>()
+                    .HasOne(a => a.Followee)
+                    .WithMany(c => c.Followees)
+                    .HasForeignKey(a => a.FolloweeId).OnDelete(DeleteBehavior.Restrict);
 
             var cascadeFKs = builder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
