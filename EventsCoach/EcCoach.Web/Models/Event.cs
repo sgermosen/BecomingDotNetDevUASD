@@ -1,5 +1,6 @@
 ﻿using EcCoach.Web.Data;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EcCoach.Web.Models
@@ -31,6 +32,8 @@ namespace EcCoach.Web.Models
         public long Latitude { get; set; }
 
         public short? MaxCapacity { get; set; }
+
+       // public ICollection<Attendance> Attendances { get; set; }
 
     }
 }

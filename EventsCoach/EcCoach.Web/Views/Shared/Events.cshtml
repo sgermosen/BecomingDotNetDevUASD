@@ -1,0 +1,32 @@
+﻿@model EcCoach.Web.ViewModels.EventsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@Model.Heading
+
+
+@await Html.PartialAsync("_EventsPartial", Model)
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $(".js-toggle-attendance").click(function (e) {
+                var button = $(e.target);
+                $.post("api/attendances", {
+                    eventId: button.attr("data-event-id")
+                })
+                    .done(function () {
+                        button.removeClass("btn-default").addClass("btn-info").text('Attending')
+                    })
+                    .fail(function () {
+                        alert('Something fail');
+                    });
+            });
+
+        });
+    </script> }

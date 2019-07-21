@@ -1,12 +1,9 @@
-﻿@model  IEnumerable<Event>
+﻿@model    EcCoach.Web.ViewModels.EventsViewModel
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-    <ul class="events">
-        @foreach (var item in Model)
-        {
+<ul class="events">
+    @foreach (var item in Model.UpcomingEvents)
+    {
         <li>
 
 
@@ -25,10 +22,16 @@
                 <span class="type">
                     @item.Type.Name
                 </span>
+                @if (Model.ShowActions)
+                {
+                    <button data-event-id="@item.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">
+                        Going?
+                    </button>
+                }
+
             </div>
 
 
         </li>
-                 
-        }
-    </ul>
+    }
+</ul>

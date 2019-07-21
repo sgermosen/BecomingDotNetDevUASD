@@ -80,14 +80,15 @@ body {
 
 
 .form-control {
-    padding: 15px;
-    font-size: 18px;
+    /*padding: 15px;
+    font-size: 18px;*/
     border-radius: 15px;
 }
 
     .form-control:focus {
         box-shadow: none;
             border-color:#FF4243
+
     }
 
  

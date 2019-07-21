@@ -4,6 +4,8 @@ using EcCoach.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -16,6 +18,25 @@ namespace EcCoach.Web.Controllers
         public EventsController(DataContext context)
         {
             _context = context;
+        }
+
+        public IActionResult MyEvents()
+        {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var upcomingEvents = _context.Events
+                .Include(c => c.Coach)
+                .Include(c => c.Type)
+                .Where(p => p.DateTime >= DateTime.Now && p.CoachId == userId).ToList();
+
+            var vm = new EventsViewModel
+            {
+                UpcomingEvents = upcomingEvents,
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "My Events"
+            };
+
+            return View("Events", vm);
         }
 
         [Authorize]

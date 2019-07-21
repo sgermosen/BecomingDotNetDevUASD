@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using EcCoach.Web.Models;
 using EcCoach.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using EcCoach.Web.ViewModels;
 
 namespace EcCoach.Web.Controllers
 {
@@ -26,9 +27,16 @@ namespace EcCoach.Web.Controllers
             var upcomingEvents = _context.Events
                 .Include(c =>  c.Coach)
                 .Include(c => c.Type)
-                .Where (p => p.DateTime>= DateTime.Now);
+                .Where (p => p.DateTime>= DateTime.Now).ToList();
 
-            return View(upcomingEvents);
+            var vm = new EventsViewModel
+            {
+                UpcomingEvents = upcomingEvents,
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "Upcoming Events"
+            };
+
+            return View("Events", vm);
         }
 
         public IActionResult Privacy()
