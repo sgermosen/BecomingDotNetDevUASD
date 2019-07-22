@@ -1,0 +1,24 @@
+
+*Read and practice the "Becoming a dotNet developer using netCore Notes.pdf" from page # 150 to page # 186.
+
+*Implement a screen to see a List of your "Add Model" form this need to be done in a partial view.
+
+*Implement on this list an API to what ever you want, can be a counter or something simple, this need to implement a DTO.
+
+*Use Fluent API to make at least one validation on your model.
+
+*Update your requirments document if is need it.
+
+*Hide options from unlogged users.
+
+
+
+
+
+
+
+
+
+ 
+
+
