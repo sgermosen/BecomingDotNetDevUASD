@@ -9,6 +9,11 @@ The followers and lovers of this kind of events, can follow their favorites coac
 Users need to have the possibility to search upcoming events by coach, type and location to add it to their activity calendar.
 When the user follow an coach their upcoming events need to be visible on his feed.
 
+--
+The color need to represend happiness, sunshine and fun for that reason was choseen #FF4342.
+---
+The events need to be showed as a calendar (with the form of it).
+
 _Autentication
 Sign Up					***		
 Login					***
@@ -40,17 +45,25 @@ Event feed based on who I’M following
 Domain/Database
 
 _Event
-Coach (User)
+Coach 		User than create the event.
 DateTime
 Type
-Address
+Venue-Address	The place where its going to happend the event.
 Latitude
 Longitude
 MaxCapacity
 
-_Type
+_Type 		Its the table than its going to store the type of event than I can create, eg: Talk, Motivational, etc.
 Name
 
+--
+_Following	Its the table than represent the list of coach than I (register user) can follow.
+Follower 	Is the person who follow a coach.
+Followee	Is the coach who its been followed.
+
+_Attendance	Its the table to store the event than i want to attendance or the one than i want to go.
+Event
+Attendee	The user than want to go to that event.
 
 
  

@@ -48,12 +48,12 @@ namespace EcCoach.Web.Data
             builder.Entity<Following>()
                     .HasOne(a => a.Follower)
                     .WithMany(c => c.Followers)
-                    .HasForeignKey(a => a.FollowerId).OnDelete(DeleteBehavior.Restrict);
+                    .HasForeignKey(a => a.FollowerId);
 
             builder.Entity<Following>()
                     .HasOne(a => a.Followee)
                     .WithMany(c => c.Followees)
-                    .HasForeignKey(a => a.FolloweeId).OnDelete(DeleteBehavior.Restrict);
+                    .HasForeignKey(a => a.FolloweeId);
 
             var cascadeFKs = builder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
