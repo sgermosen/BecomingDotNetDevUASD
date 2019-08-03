@@ -52,3 +52,12 @@ span.field-validation-error {
                 font-size: 15px;
                 display: block;
             }
+
+        .events > li .actions {
+            font-size: 14px;
+            display: none
+        }
+
+        .events > li:hover .actions {
+            display: block
+        }

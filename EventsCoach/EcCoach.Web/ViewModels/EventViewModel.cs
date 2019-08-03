@@ -6,6 +6,8 @@ namespace EcCoach.Web.ViewModels
 {
     public class EventViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public int TypeId { get; set; }
 
@@ -17,6 +19,17 @@ namespace EcCoach.Web.ViewModels
         public string Date { get; set; }
 
         public string Time { get; set; }
+
+        public string Header
+        {
+            get { return (Id != 0) ? "Updating Event" : "Creating Event"; }
+        }
+
+        public string Action
+        {
+            get { return (Id != 0) ? "Update" : "Create"; }
+        }
+   
 
         public DateTime GetFullDate()
         {

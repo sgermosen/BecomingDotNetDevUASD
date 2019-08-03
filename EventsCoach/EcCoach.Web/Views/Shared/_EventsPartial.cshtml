@@ -16,12 +16,19 @@
                 </div>
             </div>
             <div class="details">
+                @if (item.IsCanceled)
+                {
+                    <span class="alert alert-warning">Canceled</span>
+                }
                 <span class="coach">
                     @item.Coach.Name
                 </span>
                 <span class="type">
                     @item.Type.Name
                 </span>
+
+
+
                 @if (Model.ShowActions)
                 {
                     <button data-event-id="@item.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">

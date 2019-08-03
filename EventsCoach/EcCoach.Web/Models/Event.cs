@@ -1,7 +1,9 @@
 ﻿using EcCoach.Web.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace EcCoach.Web.Models
 {
@@ -33,7 +35,26 @@ namespace EcCoach.Web.Models
 
         public short? MaxCapacity { get; set; }
 
-       // public ICollection<Attendance> Attendances { get; set; }
+        public bool IsCanceled { get; private set; }
+
+        public ICollection<Attendance> Attendances { get; private set; }
+
+        public Event()
+        {
+            Attendances = new Collection<Attendance>();
+        }
+
+        public void Cancel()
+        {
+            IsCanceled = true;
+            var notification = new Notification(NotificationType.EventCanceled, this);
+            foreach (var attendee in this.Attendances.Select(a => a.Attendee))
+            {
+                attendee.Notify(notification);
+            }
+        }
+
+        // public ICollection<Attendance> Attendances { get; set; }
 
     }
 }

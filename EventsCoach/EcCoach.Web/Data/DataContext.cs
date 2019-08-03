@@ -21,6 +21,9 @@ namespace EcCoach.Web.Data
 
         public DbSet<Following> Followings { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -35,14 +38,14 @@ namespace EcCoach.Web.Data
             builder.Entity<Attendance>()
             .HasOne(a => a.Event)
             .WithMany()
-            .HasForeignKey(a => a.EventId) ;
+            .HasForeignKey(a => a.EventId);
 
             builder.Entity<Attendance>()
             .HasOne(a => a.Attendee)
             .WithMany()
-            .HasForeignKey(a => a.AttendeeId) ; //.
+            .HasForeignKey(a => a.AttendeeId); //.
 
-           
+
             builder.Entity<Following>().HasKey(p => new { p.FolloweeId, p.FollowerId });
 
             builder.Entity<Following>()
@@ -54,6 +57,18 @@ namespace EcCoach.Web.Data
                     .HasOne(a => a.Followee)
                     .WithMany(c => c.Followees)
                     .HasForeignKey(a => a.FolloweeId);
+
+            builder.Entity<UserNotification>().HasKey(p => new { p.UserId, p.NotificationId });
+
+            builder.Entity<UserNotification>()
+                  .HasOne(a => a.User)
+                  .WithMany()
+                  .HasForeignKey(a => a.UserId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserNotification>()
+                 .HasOne(a => a.Notification)
+                 .WithMany()
+                 .HasForeignKey(a => a.NotificationId).OnDelete(DeleteBehavior.Restrict);
 
             var cascadeFKs = builder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())

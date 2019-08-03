@@ -80,8 +80,8 @@ body {
 
 
 .form-control {
-    /*padding: 15px;
-    font-size: 18px;*/
+    height: 44px;
+    /*font-size: 17px;*/
     border-radius: 15px;
 }
 

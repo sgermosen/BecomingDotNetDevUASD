@@ -2,16 +2,20 @@
 
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Model.Header;
 
 }
 
 @ViewBag.Msg
 
+    <h1> @Model.Header </h1>
+
 <p class="alert alert-success">
     All fields are <strong>required</strong>
 </p>
-<form asp-action="Create">
+<form asp-action="@Model.Action">
+
+    <input asp-for="Id" type="hidden" />
 
     <div class="form-group">
         <label asp-for="Venue">  </label>
@@ -29,7 +33,7 @@
         <span asp-validation-for="Time"></span>
     </div>
     <div class="form-group">
-        <label asp-for="TypeId">  </label>
+        <label asp-for="TypeId"> Type  </label>
         <select asp-for="TypeId"
                 asp-items="@ViewBag.TypeList"
                 class="form-control"></select>
@@ -49,4 +53,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
- 

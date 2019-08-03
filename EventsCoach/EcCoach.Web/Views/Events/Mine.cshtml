@@ -1,0 +1,61 @@
+﻿@model ICollection<Event>
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<ul class="events">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @item.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @item.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="coach">
+                    @item.Venue
+                </span>
+                <span class="type">
+                    @item.Type.Name
+                </span>
+            </div>
+            <div class="actions">
+                <a asp-controller="Events" asp-action="Update" asp-route-id="@item.Id">
+                    Update
+                </a>
+                <a class="js-cancel-event" data-event-id="@item.Id">
+                    Cancel
+                </a>
+            </div>
+        </li>
+    }
+</ul>
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            $(".js-cancel-event").click(function (e) {
+                var link = $(e.target);
+                if (confirm("Are you sure you want to cancel this event?")) {
+                    $.ajax({
+                        url: "/events/Cancel/" + link.attr("data-event-id"),
+                        method: "POST"
+                    })
+                        .done(function () {
+                            link.parents("li").fadeOut(function () {
+                                $(this).remove();
+                            });
+                        })
+                        .fail(function () {
+                            alert("Something failed!");
+                        });
+                }
+            });
+        });
+    </script>
+}

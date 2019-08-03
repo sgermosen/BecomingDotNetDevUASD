@@ -4,14 +4,16 @@ using EcCoach.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcCoach.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190803144651_adding-cancell-prop")]
+    partial class addingcancellprop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,29 +141,6 @@ namespace EcCoach.Web.Migrations
                     b.ToTable("Followings");
                 });
 
-            modelBuilder.Entity("EcCoach.Web.Models.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("NotificationType");
-
-                    b.Property<DateTime?>("OriginalDateTime");
-
-                    b.Property<string>("OriginalVenue");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("Notifications");
-                });
-
             modelBuilder.Entity("EcCoach.Web.Models.Type", b =>
                 {
                     b.Property<int>("Id")
@@ -175,21 +154,6 @@ namespace EcCoach.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Types");
-                });
-
-            modelBuilder.Entity("EcCoach.Web.Models.UserNotification", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("NotificationId");
-
-                    b.Property<bool>("IsRead");
-
-                    b.HasKey("UserId", "NotificationId");
-
-                    b.HasAlternateKey("NotificationId", "UserId");
-
-                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,27 +306,6 @@ namespace EcCoach.Web.Migrations
                     b.HasOne("EcCoach.Web.Data.ApplicationUser", "Follower")
                         .WithMany("Followers")
                         .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("EcCoach.Web.Models.Notification", b =>
-                {
-                    b.HasOne("EcCoach.Web.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("EcCoach.Web.Models.UserNotification", b =>
-                {
-                    b.HasOne("EcCoach.Web.Models.Notification", "Notification")
-                        .WithMany()
-                        .HasForeignKey("NotificationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("EcCoach.Web.Data.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

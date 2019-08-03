@@ -20,6 +20,38 @@ namespace EcCoach.Web.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public IActionResult Cancel(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+           
+            var ev = _context.Events
+                             .Include(p => p.Attendances.Select(a => a.Attendee))
+                             .Single(a => a.CoachId == userId && a.Id == id);
+
+            if (ev.IsCanceled)
+                return NotFound();
+
+            ev.Cancel();
+
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var events = _context.Events
+            .Where(a => a.CoachId == userId && a.DateTime >= DateTime.Now && !a.IsCanceled)
+            .Include(p => p.Type)
+            .ToList();
+
+            return View(events);
+
+        }
+
         [Authorize]
         public ActionResult Following()
         {
@@ -76,8 +108,13 @@ namespace EcCoach.Web.Controllers
 
             ViewBag.TypeList = new SelectList(types, "Id", "Name");
             //this is a comment 
+            var vm = new EventViewModel
+            {
+                Date = DateTime.Now.ToString("dd/MM/yyyy"),
 
-            return View();
+            };
+
+            return View("EventForm", vm);
         }
 
         [HttpPost]
@@ -109,7 +146,7 @@ namespace EcCoach.Web.Controllers
 
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Mine");
 
             }
 
@@ -117,7 +154,80 @@ namespace EcCoach.Web.Controllers
             ViewBag.TypeList = new SelectList(types, "Id", "Name", vm.TypeId);
 
             ViewBag.Msg = "erro on Model";
-            return View();
+            return View("EventForm", vm);
+
+
+        }
+
+
+        [Authorize]
+        // [HttpGet]
+        public IActionResult Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var ev = _context.Events.Where(p => p.Id == id.Value && p.CoachId == userId).FirstOrDefault();
+
+            if (ev == null)
+                return NotFound();
+
+            var types = _context.Types.ToList();
+
+            ViewBag.TypeList = new SelectList(types, "Id", "Name", ev.TypeId);
+
+            var vm = new EventViewModel
+            {
+                Id = ev.Id,
+                TypeId = ev.TypeId,
+                Date = ev.DateTime.ToString("dd/MM/yyyy"),
+                Time = ev.DateTime.ToString("HH:mm"),
+                Venue = ev.Venue,
+            };
+            //this is a comment 
+
+            return View("EventForm", vm);
+        }
+
+        [HttpPost]
+        public IActionResult Update(EventViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // var user = _context.Users.Where(p => p.Id == userId).FirstOrDefault();
+                //string.Format("{0} {1}", vm.Date, vm.Time);
+                //var dd =  vm.Date + " " +  vm.Time;
+
+                //var type = _context.Types.Where(p => p.Id == vm.TypeId).FirstOrDefault();
+                var model = new Event
+                {
+                    CoachId = userId,
+                    Venue = vm.Venue,
+                    DateTime = vm.GetFullDate(),
+                    Latitude = 0,
+                    Longitude = 0,
+                    TypeId = vm.TypeId,
+                    MaxCapacity = 0
+
+                    //Type= type
+                };
+
+                //  _context.Events.Add(ev);
+                _context.Add(model);
+
+                _context.SaveChanges();
+
+                return RedirectToAction("Mine");
+
+            }
+
+            var types = _context.Types.ToList();
+            ViewBag.TypeList = new SelectList(types, "Id", "Name", vm.TypeId);
+
+            ViewBag.Msg = "erro on Model";
+            return View("EventForm", vm);
 
 
         }
