@@ -47,11 +47,22 @@ namespace EcCoach.Web.Models
         public void Cancel()
         {
             IsCanceled = true;
-            var notification = new Notification(NotificationType.EventCanceled, this);
+            var notification = Notification.EventCanceled(this);
             foreach (var attendee in this.Attendances.Select(a => a.Attendee))
             {
                 attendee.Notify(notification);
             }
+        }
+
+        public void Modify(DateTime dateTime, string venue, byte typeId)
+        {
+            var notification = Notification.EventUpdated(this,DateTime, Venue);
+        
+            DateTime = dateTime;
+            TypeId = typeId;
+            Venue = venue;
+            foreach (var attendee in Attendances.Select(a => a.Attendee))
+                attendee.Notify(notification);
         }
 
         // public ICollection<Attendance> Attendances { get; set; }

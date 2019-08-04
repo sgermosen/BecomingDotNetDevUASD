@@ -37,12 +37,12 @@ namespace EcCoach.Web.Data
             //Relation
             builder.Entity<Attendance>()
             .HasOne(a => a.Event)
-            .WithMany()
+            .WithMany(e => e.Attendances)
             .HasForeignKey(a => a.EventId);
 
             builder.Entity<Attendance>()
             .HasOne(a => a.Attendee)
-            .WithMany()
+            .WithMany(e => e.Attendances)
             .HasForeignKey(a => a.AttendeeId); //.
 
 
@@ -62,12 +62,12 @@ namespace EcCoach.Web.Data
 
             builder.Entity<UserNotification>()
                   .HasOne(a => a.User)
-                  .WithMany()
+                  .WithMany(u => u.UserNotifications)
                   .HasForeignKey(a => a.UserId).OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UserNotification>()
                  .HasOne(a => a.Notification)
-                 .WithMany()
+                 .WithMany(u => u.UserNotifications)
                  .HasForeignKey(a => a.NotificationId).OnDelete(DeleteBehavior.Restrict);
 
             var cascadeFKs = builder.Model.GetEntityTypes()

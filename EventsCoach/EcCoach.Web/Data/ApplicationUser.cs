@@ -20,12 +20,14 @@ namespace EcCoach.Web.Data
         public ICollection<Following> Followees { get; set; }
 
         public ICollection<UserNotification> UserNotifications { get; set; }
+        public ICollection<Attendance> Attendances { get; private set; }
 
         public ApplicationUser()
         {
             Followers = new Collection<Following>();
             Followees = new Collection<Following>();
             UserNotifications = new Collection<UserNotification>();
+            Attendances = new Collection<Attendance>();
         }
 
         internal void Notify(Notification notification)

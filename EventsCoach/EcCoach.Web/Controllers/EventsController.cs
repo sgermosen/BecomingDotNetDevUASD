@@ -25,7 +25,7 @@ namespace EcCoach.Web.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-           
+
             var ev = _context.Events
                              .Include(p => p.Attendances.Select(a => a.Attendee))
                              .Single(a => a.CoachId == userId && a.Id == id);
@@ -196,26 +196,17 @@ namespace EcCoach.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                // var user = _context.Users.Where(p => p.Id == userId).FirstOrDefault();
-                //string.Format("{0} {1}", vm.Date, vm.Time);
-                //var dd =  vm.Date + " " +  vm.Time;
 
-                //var type = _context.Types.Where(p => p.Id == vm.TypeId).FirstOrDefault();
-                var model = new Event
-                {
-                    CoachId = userId,
-                    Venue = vm.Venue,
-                    DateTime = vm.GetFullDate(),
-                    Latitude = 0,
-                    Longitude = 0,
-                    TypeId = vm.TypeId,
-                    MaxCapacity = 0
+                var ev = _context.Events.Include(g => g.Attendances.Select(a => a.Attendee))
+  .Single(g => g.Id == vm.Id && g.CoachId == userId);
 
-                    //Type= type
-                };
-
-                //  _context.Events.Add(ev);
-                _context.Add(model);
+                ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
+                //ev.Venue = vm.Venue;
+                //ev.DateTime = vm.GetFullDate();
+                //ev.Latitude = 0;
+                //ev.Longitude = 0;
+                //ev.TypeId = vm.TypeId;
+                //ev.MaxCapacity = 0;
 
                 _context.SaveChanges();
 
