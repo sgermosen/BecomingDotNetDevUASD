@@ -1,4 +1,5 @@
-﻿using EcCoach.Web.Data;
+﻿using AutoMapper;
+using EcCoach.Web.Data;
 using EcCoach.Web.Dtos;
 using EcCoach.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace EcCoach.Web.Controllers.API
 
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
-            var userId =  User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = "1e8d2f2f-b3c8-4acd-abfe-0da932a0a551";// User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var notifications = _context.UserNotifications
             .Where(un => un.UserId == userId && !un.IsRead)
@@ -30,27 +31,17 @@ namespace EcCoach.Web.Controllers.API
             .Include(n => n.Event.Coach)
             .ToList();
 
-            return notifications.Select(n => new NotificationDto()
-            {
-                DateTime = n.DateTime,
-                Event = new EventDto
-                {
-                    Coach = new UserDto
-                    {
-                        Id = n.Event.Coach.Id,
-                        Name = n.Event.Coach.Name
-                    },
-                    DateTime = n.Event.DateTime,
-                    Id = n.Event.Id,
-                    IsCanceled = n.Event.IsCanceled,
-                    Venue = n.Event.Venue,
-                },
-                OriginalDateTime = n.OriginalDateTime,
-                OriginalVenue = n.OriginalVenue,
-                NotificationType = n.NotificationType
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<ApplicationUser, UserDto>();
+                cfg.CreateMap<Event, EventDto>();
+                cfg.CreateMap<Notification, NotificationDto>();
             });
 
-            
+            IMapper iMapper = config.CreateMapper();
+
+            return notifications.Select(iMapper.Map<Notification, NotificationDto>);
+
+
         }
     }
 }
