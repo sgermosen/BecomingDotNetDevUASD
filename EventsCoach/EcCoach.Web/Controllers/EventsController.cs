@@ -200,7 +200,7 @@ namespace EcCoach.Web.Controllers
                 var ev = _context.Events.Include(g => g.Attendances.Select(a => a.Attendee))
   .Single(g => g.Id == vm.Id && g.CoachId == userId);
 
-                ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
+               // ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
                 //ev.Venue = vm.Venue;
                 //ev.DateTime = vm.GetFullDate();
                 //ev.Latitude = 0;
