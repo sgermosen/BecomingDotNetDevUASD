@@ -9,17 +9,13 @@ using System.Threading.Tasks;
 
 namespace EcCoach.Web.Config
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ApplicationUser, UserDto>();
-                cfg.CreateMap<Event, EventDto>();
-                cfg.CreateMap<Notification, NotificationDto>();
-            });
-
-             config.CreateMapper();
+            CreateMap<ApplicationUser, UserDto>().ReverseMap();
+            CreateMap<Event, EventDto>().ReverseMap();
+            CreateMap<Notification, NotificationDto>().ReverseMap();
         }
     }
 }
