@@ -7,6 +7,21 @@
 
 @Model.Heading
 
+<form asp-action="Search">
+
+    <div class="form-group">
+        <div id="searchEvents" class="input-group">
+            <input asp-for="SearchTerm" class="form-control"
+                   placeholder="Enter a search tearm by Venue or Couach" />
+            <span class="input-group-addon"> <i class="fas fa-search-location fa-3x"></i> </span>
+        </div>
+
+    </div>
+    <input type="submit" value="Search" class="btn btn-primary" />
+
+</form>
+<br />
+<br />
 
 @await Html.PartialAsync("_EventsPartial", Model)
 
@@ -15,9 +30,9 @@
     <script>
         $(document).ready(function () {
 
-             $(".js-toggle-follow").click(function (e) {
+            $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
-                
+
                 $.post("/api/followings/", { followeeId: button.attr("data-user-id") })
                     .done(function () {
                         button.text("Following");
@@ -25,7 +40,7 @@
                     .fail(function () {
                         alert("Someting fail");
                     })
-             });
+            });
 
             $(".js-toggle-attendance").click(function (e) {
                 var button = $(e.target);
@@ -42,4 +57,4 @@
 
         });
     </script>
- }
+}

@@ -61,3 +61,6 @@ span.field-validation-error {
         .events > li:hover .actions {
             display: block
         }
+#searchEvents {
+    width: 300px
+}

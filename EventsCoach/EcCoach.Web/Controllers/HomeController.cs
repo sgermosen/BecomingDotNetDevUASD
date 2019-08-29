@@ -20,20 +20,32 @@ namespace EcCoach.Web.Controllers
             _context = context;
         }
 
+        public IActionResult Search(EventsViewModel vm)
+        {
+            return RedirectToAction("Index", new { query = vm.SearchTerm });
+        }
 
-
-        public IActionResult Index( )
+        public IActionResult Index(string query = null)
         {
             var upcomingEvents = _context.Events
-                .Include(c =>  c.Coach)
-                .Include(c => c.Type)
-                .Where (p => p.DateTime>= DateTime.Now).ToList();
+                                .Include(c => c.Coach)
+                                .Include(c => c.Type)
+                                .Where(p => p.DateTime > DateTime.Now && !p.IsCanceled);
+
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                upcomingEvents = upcomingEvents.Where(g =>
+                g.Coach.Name.Contains(query) ||
+                g.Type.Name.Contains(query) ||
+                g.Venue.Contains(query));
+            }
 
             var vm = new EventsViewModel
             {
-                UpcomingEvents = upcomingEvents,
+                UpcomingEvents = upcomingEvents.ToList(),
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Upcoming Events"
+                Heading = "Upcoming Events ", //My upcoming events on the other screen SearchTerm = query
+                SearchTerm = query
             };
 
             return View("Events", vm);
