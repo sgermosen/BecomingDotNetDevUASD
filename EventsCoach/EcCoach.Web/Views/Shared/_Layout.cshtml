@@ -18,6 +18,8 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
 
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+
     <link href="~/css/MyStyles.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
@@ -56,6 +58,9 @@
                             <li class="nav-item dropdown ml-auto">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @User.Identity.Name
+                                </a>
+                                <a>
+                                    <i class="glyphicon glyphicon-globe"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -117,7 +122,11 @@
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
     </environment>
+
+    <script src="~/lib/fontawesome/js/all.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

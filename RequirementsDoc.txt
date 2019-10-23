@@ -15,56 +15,67 @@ The color need to represend happiness, sunshine and fun for that reason was chos
 The events need to be showed as a calendar (with the form of it).
 
 _Autentication
-Sign Up					***		
-Login					***
-Log Out
-Change Password
-Edit profile
+(done)	Sign Up					***		
+(done)	Login					***
+(done)	Log Out					*
+	Change Password				*
+	Edit profile				*
 
 _Events
-Add an Event				***
-My upcoming events
-Edit an Event
-Delete an Event
-View all upcoming events		**
-Search Events
-View Events Details
+(done)	Add an Event				***
+(done)	My upcoming events			*
+(done)	Edit an Event				*
+(done)	Delete an Event (Cancel)		*
+(done)	View all upcoming events		**
+(done)	Search Events				*
+(done)	View Events Details			*
 
 _Calendar
-Add Event to a Calendar			***
-Remove Event From calendar
-View Events than I’m attending for	**
+(done)	Add Event to a Calendar			***
+	Remove Event From calendar		*
+(done)	View Events than I’m attending for	**
 
 _Following
-Follow a Coach				***
-Unfollow a Coach
-Who I’m following			**
-Event feed based on who I’M following 	
+(done)	Follow a Coach				***
+	Unfollow a Coach			*
+(done)	Who I’m following			**
+	Event feed based on who I’M following 	*
 
+-------------------
+--Domain/Database--
+-------------------
 
-Domain/Database
-
-_Event
+_Event		Its the core of our project and its what we want to create
+----------------
 Coach 		User than create the event.
-DateTime
-Type
+DateTime	Date and Time than will occurs the event
+Type		
 Venue-Address	The place where its going to happend the event.
 Latitude
 Longitude
-MaxCapacity
+MaxCapacity	Max capacity for restricted events
+----------------
+----------------
 
-_Type 		Its the table than its going to store the type of event than I can create, eg: Talk, Motivational, etc.
-Name
+_Type 		Its the table than its going to store the type of event than I can create, eg: Talk, 		Motivational, etc.
+----------------
+Name		
+----------------
+----------------
 
---
-_Following	Its the table than represent the list of coach than I (register user) can follow.
+_Following	Its the table than represent the list of coach than I (registered user) can follow.
+----------------
 Follower 	Is the person who follow a coach.
 Followee	Is the coach who its been followed.
+----------------
+----------------
 
 _Attendance	Its the table to store the event than i want to attendance or the one than i want to go.
+----------------
 Event
 Attendee	The user than want to go to that event.
-
+----------------
+----------------
 
  
 

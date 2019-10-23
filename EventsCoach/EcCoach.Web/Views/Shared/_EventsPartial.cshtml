@@ -5,8 +5,6 @@
     @foreach (var item in Model.UpcomingEvents)
     {
         <li>
-
-
             <div class="date">
                 <div class="month">
                     @item.DateTime.ToString("MMM")
@@ -16,12 +14,15 @@
                 </div>
             </div>
             <div class="details">
-                @if (item.IsCanceled)
-                {
-                    <span class="alert alert-warning">Canceled</span>
-                }
+              
                 <span class="coach">
-                    @item.Coach.Name
+                   <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                      @item.Coach.Name
+                   </a>
+                    @if (item.IsCanceled)
+                    {
+                        <span class="alert alert-warning">Canceled</span>
+                    }
                 </span>
                 <span class="type">
                     @item.Type.Name
@@ -30,14 +31,12 @@
                     @item.Venue
                 </span>
 
-
-
                 @if (Model.ShowActions)
                 {
-                    <button data-event-id="@item.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">
+                    <button data-event-id="@item.Id" class="btn btn-light btn-sm pull-right js-toggle-attendance">
                         Going?
                     </button>
-                    <button data-user-id="@item.CoachId" asp-route-id="@item.CoachId" class="btn btn-default btn-sm pull-right js-toggle-follow">
+                    <button data-user-id="@item.CoachId" asp-route-id="@item.CoachId" class="btn btn-light btn-sm pull-right js-toggle-follow">
                         Follow
                     </button>
                 }

@@ -37,7 +37,7 @@ namespace EcCoach.Web.Models
 
         public bool IsCanceled { get; private set; }
 
-        public ICollection<Attendance> Attendances { get; private set; }
+        public ICollection<Attendance> Attendances { get;  set; }
 
         public Event()
         {
@@ -54,7 +54,7 @@ namespace EcCoach.Web.Models
             }
         }
 
-        public void Modify(DateTime dateTime, string venue, byte typeId)
+        public void Modify(DateTime dateTime, string venue, int typeId)
         {
             var notification = Notification.EventUpdated(this,DateTime, Venue);
         

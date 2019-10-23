@@ -1,0 +1,18 @@
+*On Event.cs Model change the byte typeId to int typeId
+
+*On EventsController - Update Action change the ariginal way to optain the event, from a select to a new way to done this, remember than we need to include the attendee from the attendance but we was on the Event (than dont have direct relation, on Framework we use Select and resolve with a lambda expresion, but now we can use ThenInclude
+ var ev = _context.Events
+                .Include(g => g.Attendances).ThenInclude(a => a.Attendee).Where
+                (g => g.Id == vm.Id && g.CoachId == userId).Single();
+
+
+*On EventViewModel I add a new helper called ValidTime
+
+*On EventViewModel I solve the error to avoid the magic strings
+
+*On entire solution change all btn-default to btn-light because the default way to show the things on bootstrap 4 its awfull.
+
+*On Mine.cshtml the <a> element for cancel, I add href="#" to convert it into a link
+
+*On Events.cshtml I organize the search form
+

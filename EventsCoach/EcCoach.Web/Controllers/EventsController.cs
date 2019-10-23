@@ -81,6 +81,32 @@ namespace EcCoach.Web.Controllers
 
         }
 
+        public IActionResult Details(int id)
+        {
+
+            var ev = _context.Events
+                .Include(p => p.Coach)
+                .Include(p => p.Type)
+                .SingleOrDefault(p => p.Id == id);
+
+            if (ev == null)
+                return NotFound();
+
+            var vm = new EventDetailsViewModel { Event = ev };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                vm.IsAttending = _context.Attendances.Any(a => a.EventId == ev.Id && a.AttendeeId == userId);
+
+                vm.IsFollowing = _context.Followings.Any(a => a.FolloweeId == ev.CoachId && a.FollowerId == userId);
+            }
+
+            return View(nameof(Details), vm);
+
+        }
+
         //public IActionResult MyEvents()
         //{
 
@@ -197,11 +223,12 @@ namespace EcCoach.Web.Controllers
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                var ev = _context.Events.Include(g => g.Attendances.Select(a => a.Attendee))
-  .Single(g => g.Id == vm.Id && g.CoachId == userId);
+                var ev = _context.Events
+                .Include(g => g.Attendances).ThenInclude(a => a.Attendee).Where
+                (g => g.Id == vm.Id && g.CoachId == userId).Single();
 
-               // ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
-                //ev.Venue = vm.Venue;
+                ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
+               // ev.Venue = vm.Venue;
                 //ev.DateTime = vm.GetFullDate();
                 //ev.Latitude = 0;
                 //ev.Longitude = 0;
@@ -211,13 +238,12 @@ namespace EcCoach.Web.Controllers
                 _context.SaveChanges();
 
                 return RedirectToAction("Mine");
-
             }
 
             var types = _context.Types.ToList();
             ViewBag.TypeList = new SelectList(types, "Id", "Name", vm.TypeId);
 
-            ViewBag.Msg = "erro on Model";
+            ViewBag.Msg = "Error on Model";
             return View("EventForm", vm);
 
 

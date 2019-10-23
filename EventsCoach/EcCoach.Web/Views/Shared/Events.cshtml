@@ -4,22 +4,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-@Model.Heading
-
 <form asp-action="Search">
-
     <div class="form-group">
         <div id="searchEvents" class="input-group">
             <input asp-for="SearchTerm" class="form-control"
-                   placeholder="Enter a search tearm by Venue or Couach" />
-            <span class="input-group-addon"> <i class="fas fa-search-location fa-3x"></i> </span>
+                   placeholder="Enter a search tearm by Venue or Coach" />
+            <span class="input-group-addon"> <i class="fas fa-search-location fa-2x"></i> </span>
+            <input type="submit" value="Search" class="btn btn-primary" />
         </div>
-
     </div>
-    <input type="submit" value="Search" class="btn btn-primary" />
-
 </form>
+@Model.Heading
 <br />
 <br />
 
@@ -35,7 +30,7 @@
 
                 $.post("/api/followings/", { followeeId: button.attr("data-user-id") })
                     .done(function () {
-                        button.text("Following");
+                         button.removeClass("btn-light").addClass("btn-info").text('Following')
                     })
                     .fail(function () {
                         alert("Someting fail");
@@ -48,7 +43,7 @@
                     eventId: button.attr("data-event-id")
                 })
                     .done(function () {
-                        button.removeClass("btn-default").addClass("btn-info").text('Attending')
+                        button.removeClass("btn-light").addClass("btn-info").text('Attending')
                     })
                     .fail(function () {
                         alert('Something fail');

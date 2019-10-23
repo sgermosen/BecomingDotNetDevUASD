@@ -1,0 +1,33 @@
+﻿@model EcCoach.Web.ViewModels.EventDetailsViewModel
+
+@{
+    ViewBag.Tittle = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @Model.Event.Coach.Name
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (Model.IsFollowing)
+        {
+            <button class="btn btn-info"> Following</button>
+        }
+        else
+        {
+            <button class="btn btn-light"> Follow</button>
+        }
+    }
+</h2>
+<h3>
+    This event will ocurred at @Model.Event.Venue on @Model.Event.DateTime.ToString("d MMM")
+    at @Model.Event.DateTime.ToString("HH:mm")
+
+</h3>
+
+@if (User.Identity.IsAuthenticated && Model.IsAttending)
+{   <h3>
+    You are Attending to this event
+    </h3>
+   
+}
