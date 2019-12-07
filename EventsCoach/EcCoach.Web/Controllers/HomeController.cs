@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EcCoach.Web.Models;
@@ -40,12 +41,18 @@ namespace EcCoach.Web.Controllers
                 g.Venue.Contains(query));
             }
 
-            var vm = new EventsViewModel
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var attendances = _context.Attendances.Where(a => a.AttendeeId == userId && a.Event.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a=> a.EventId);
+
+;            var vm = new EventsViewModel
             {
                 UpcomingEvents = upcomingEvents.ToList(),
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Events ", //My upcoming events on the other screen SearchTerm = query
-                SearchTerm = query
+                SearchTerm = query,
+                Attendances = attendances
             };
 
             return View("Events", vm);

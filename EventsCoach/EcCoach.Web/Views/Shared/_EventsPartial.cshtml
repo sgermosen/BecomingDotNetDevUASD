@@ -1,4 +1,4 @@
-﻿@model    EcCoach.Web.ViewModels.EventsViewModel
+﻿@model EcCoach.Web.ViewModels.EventsViewModel
 
 
 <ul class="events">
@@ -14,33 +14,30 @@
                 </div>
             </div>
             <div class="details">
-              
                 <span class="coach">
-                   <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
-                      @item.Coach.Name
-                   </a>
-                    @if (item.IsCanceled)
+                    <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id">
+                        @item.Coach.Name
+                    </a> @if (item.IsCanceled)
                     {
-                        <span class="alert alert-warning">Canceled</span>
+                        <span class="label label-warning">Canceled</span>
+                    }
+                    @if (Model.ShowActions)
+                    {
+                        <button data-user-id="@item.CoachId" asp-route-id="@item.CoachId" class="btn btn-default btn-sm pull-right js-toggle-follow"> Follow </button>
                     }
                 </span>
                 <span class="type">
                     @item.Type.Name
                 </span>
-                <span class="venue">
-                    @item.Venue
-                </span>
-
-                @if (Model.ShowActions)
-                {
-                    <button data-event-id="@item.Id" class="btn btn-light btn-sm pull-right js-toggle-attendance">
+                @if (Model.ShowActions && !item.IsCanceled)
+                { 
+                    <button data-event-id="@item.Id" asp-route-id="@item.Id"
+                            class="btn @(Model.Attendances.Contains(item.Id) ? "btn-info": "btn-default")
+                            btn-sm pull-right js-toggle-attendance">
                         Going?
                     </button>
-                    <button data-user-id="@item.CoachId" asp-route-id="@item.CoachId" class="btn btn-light btn-sm pull-right js-toggle-follow">
-                        Follow
-                    </button>
+                   
                 }
-
             </div>
 
 
