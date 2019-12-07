@@ -79,7 +79,7 @@ namespace EcCoach.Web.Controllers
                 UpcomingEvents = events,
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Events I'm Attending",
-               // Attendances = attendances
+                Attendances = attendances
             };
 
             return View("Events", vm);
