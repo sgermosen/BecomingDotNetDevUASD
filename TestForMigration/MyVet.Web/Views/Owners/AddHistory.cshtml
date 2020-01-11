@@ -1,0 +1,25 @@
+﻿@model MyVet.Web.Models.HistoryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>History</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddHistory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PetId" />
+
+            <partial name="_History" />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="DetailsPet" asp-route-id="@Model.PetId" class="btn btn-success">Back to Pet</a>
+            </div>
+        </form>
+    </div>
+</div>

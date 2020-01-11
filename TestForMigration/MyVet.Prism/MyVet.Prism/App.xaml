@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+             x:Class="MyVet.Prism.App">
+	<Application.Resources>
+
+        <ResourceDictionary>
+
+            <!-- Parameters -->
+            <x:String x:Key="UrlAPI">https://myveterinary.azurewebsites.net/</x:String>
+
+            <!-- Colors -->
+            <Color x:Key="colorBackgroud">#F2F2F2</Color>
+            <Color x:Key="colorPrimary">#0468BF</Color>
+            <Color x:Key="colorSecondary">#067302</Color>
+            <Color x:Key="colorDanger">#F2055C</Color>
+            <Color x:Key="colorAccent">#BF4904</Color>
+            <Color x:Key="colorFont">#0468BF</Color>
+            <Color x:Key="colorFontInverse">#F2F2F2</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorPrimary}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <Style x:Key="secondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorSecondary}" />
+            </Style>
+
+            <Style x:Key="dangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorDanger}" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource colorFont}" />
+            </Style>
+
+        </ResourceDictionary>
+	</Application.Resources>
+</prism:PrismApplication>

@@ -1,0 +1,33 @@
+﻿@model MyVet.Web.Models.PetViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Pet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPet" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="OwnerId" />
+            <input type="hidden" asp-for="ImageUrl" />
+
+            <partial name="_Pet"/>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Details" asp-route-id="@Model.OwnerId" class="btn btn-success">Back to Owner</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:400px;height:400px;max-width: 100%; height: auto;" />
+        }
+    </div>
+</div>

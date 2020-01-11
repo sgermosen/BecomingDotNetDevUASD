@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  BackgroundColor="{StaticResource colorBackgroud}"
+                  x:Class="MyVet.Prism.Views.VeterinaryMasterDetailPage">
+
+    <MasterDetailPage.Master>
+        <ContentPage
+            Title="Menu">
+            <StackLayout Padding="20">
+                <Image
+                    HeightRequest="150"
+                    Source="logo"/>
+                <ListView
+                    BackgroundColor="Transparent"
+                    ItemsSource="{Binding Menus}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectMenuCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Column="0"
+                                        HeightRequest="50"
+                                        Source="{Binding Icon}"
+                                        WidthRequest="50"/>
+                                    <Label
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center"
+                                        Text="{Binding Title}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+</MasterDetailPage>

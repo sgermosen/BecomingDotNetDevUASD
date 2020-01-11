@@ -1,0 +1,133 @@
+﻿@model IEnumerable<MyVet.Web.Models.AgendaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agenda</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                Owner
+                            </th>
+                            <th>
+                                Pet
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Remarks)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsAvailable)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateLocal)
+                                </td>
+                                <td>
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Owner.User.FullName)
+                                    }
+                                    else if (!item.IsAvailable)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Reserved)
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Pet.Name)
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                                </td>
+                                <td>
+                                    @if (item.IsAvailable)
+                                    {
+                                        <a asp-action="Assing" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-plus"></i></a>
+                                    }
+                                    else
+                                    {
+                                        @if (item.IsMine)
+                                        {
+                                            <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-minus"></i></button>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Un-assign agenda-->
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Un-assign Agenda</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to un-assign this appoiment?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Un-Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+
+            // Delete item
+            var item_to_delete;
+
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Home/Unassign/' + item_to_delete;
+            });
+        });
+    </script>
+}

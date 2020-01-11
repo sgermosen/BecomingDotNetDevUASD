@@ -1,0 +1,47 @@
+﻿@model MyVet.Web.Models.HistoryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>History</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddHistory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PetId" />
+
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceTypeId" class="control-label"></label>
+                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Remarks" class="control-label"></label>
+                <textarea asp-for="Remarks" class="form-control"></textarea>
+                <span asp-validation-for="Remarks" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Details" asp-route-id="@Model.PetId" class="btn btn-success">Back to Pet</a>
+            </div>
+        </form>
+    </div>
+</div>

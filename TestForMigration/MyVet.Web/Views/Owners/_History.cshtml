@@ -1,0 +1,25 @@
+﻿@model MyVet.Web.Models.HistoryViewModel
+
+<div class="form-group">
+    <label asp-for="Date" class="control-label"></label>
+    <input asp-for="Date" class="form-control" />
+    <span asp-validation-for="Date" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="ServiceTypeId" class="control-label"></label>
+    <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select>
+    <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <input asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Remarks" class="control-label"></label>
+    <textarea asp-for="Remarks" class="form-control"></textarea>
+    <span asp-validation-for="Remarks" class="text-danger"></span>
+</div>

@@ -1,0 +1,122 @@
+﻿@model IEnumerable<MyVet.Web.Data.Entities.Manager>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create New</a>
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Managers</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.Document)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.LastName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().User.PhoneNumber)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Document)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
+                                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Delete Item-->
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete the record?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+
+            // Delete item
+            var item_to_delete;
+
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Managers/Delete/' + item_to_delete;
+            });
+        });
+    </script>
+}

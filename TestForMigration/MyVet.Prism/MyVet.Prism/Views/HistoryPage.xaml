@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.HistoryPage"
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <StackLayout
+            Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    Text="Service Type"/>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{Binding History.ServiceType}"/>
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    Text="Description"/>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding History.Description}"/>
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    Text="Date"/>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding History.DateLocal, StringFormat='{0:yyyy/MM/dd HH:mm}'}"/>
+
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    Text="Remarks"/>
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="{Binding History.Remarks}"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+  
+</ContentPage>

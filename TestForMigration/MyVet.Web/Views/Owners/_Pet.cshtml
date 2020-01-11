@@ -1,0 +1,37 @@
+﻿@model MyVet.Web.Models.PetViewModel
+
+<div class="form-group">
+    <label asp-for="Name" class="control-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="ImageFile" class="control-label"></label>
+    <input asp-for="ImageFile" class="form-control" type="file" />
+    <span asp-validation-for="ImageFile" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="PetTypeId" class="control-label"></label>
+    <select asp-for="PetTypeId" asp-items="Model.PetTypes" class="form-control"></select>
+    <span asp-validation-for="PetTypeId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Race" class="control-label"></label>
+    <input asp-for="Race" class="form-control" />
+    <span asp-validation-for="Race" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Born" class="control-label"></label>
+    <input asp-for="Born" class="form-control" />
+    <span asp-validation-for="Born" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Remarks" class="control-label"></label>
+    <textarea asp-for="Remarks" class="form-control"></textarea>
+    <span asp-validation-for="Remarks" class="text-danger"></span>
+</div>
