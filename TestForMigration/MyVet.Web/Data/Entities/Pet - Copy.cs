@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyVet.Web.Data.Entities
 {
-    public class Test
+    public class Pet
     {
         public int Id { get; set; }
 

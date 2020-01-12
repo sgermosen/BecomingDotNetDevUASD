@@ -21,7 +21,8 @@ namespace MyVet.Web.Data
 
         public async Task SeedAsync()
         {
-            await _dataContext.Database.EnsureCreatedAsync();
+           //await _dataContext.Database.EnsureDeletedAsync();
+           //await _dataContext.Database.EnsureCreatedAsync();
             await CheckRoles();
             var manager = await CheckUserAsync("1010", "Juan", "Zuluaga", "jzuluaga55@gmail.com", "350 634 2747", "Calle Luna Calle Sol", "Admin");
             var customer = await CheckUserAsync("2020", "Juan", "Zuluaga", "jzuluaga55@hotmail.com", "350 634 2747", "Calle Luna Calle Sol", "Customer");
@@ -30,7 +31,49 @@ namespace MyVet.Web.Data
             await CheckOwnerAsync(customer);
             await CheckManagerAsync(manager);
             await CheckPetsAsync();
-            //await CheckAgendasAsync();
+            await CheckTestsAsync();
+            await CheckAgendasAsync();
+        }
+         
+        private async Task CheckPetTypesAsync()
+        {
+            if (!_dataContext.PetTypes.Any())
+            {
+                _dataContext.PetTypes.Add(new PetType { Name = "Perro" });
+                _dataContext.PetTypes.Add(new PetType { Name = "Gato" });
+                //TODO: HERE's One Change you need uncomment this
+                //  _dataContext.PetTypes.Add(new PetType { Name = "Gallina" });
+                await _dataContext.SaveChangesAsync();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            //TODO: HERE's One Change you need uncomment this and then comment what its up to us
+            //if (!_dataContext.PetTypes.Any(p=>p.Name== "Perro"))
+            //{
+            //    _dataContext.PetTypes.Add(new PetType { Name = "Perro" });
+            //    await _dataContext.SaveChangesAsync();
+            //}
+            //if (!_dataContext.PetTypes.Any(p => p.Name == "Gato"))
+            //{
+            //    _dataContext.PetTypes.Add(new PetType { Name = "Gato" });
+            //    await _dataContext.SaveChangesAsync();
+            //}
+            //if (!_dataContext.PetTypes.Any(p => p.Name == "Gallina"))
+            //{
+            //    _dataContext.PetTypes.Add(new PetType { Name = "Gallina" });
+            //    await _dataContext.SaveChangesAsync();
+            //}
+
         }
 
         private async Task CheckRoles()
@@ -39,14 +82,7 @@ namespace MyVet.Web.Data
             await _userHelper.CheckRoleAsync("Customer");
         }
 
-        private async Task<User> CheckUserAsync(
-            string document, 
-            string firstName, 
-            string lastName, 
-            string email, 
-            string phone, 
-            string address, 
-            string role)
+        private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, string role)
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
             if (user == null)
@@ -84,6 +120,18 @@ namespace MyVet.Web.Data
             }
         }
 
+        private async Task CheckTestsAsync()
+        {
+            if (!_dataContext.Tests.Any())
+            {
+                var owner = _dataContext.Owners.FirstOrDefault();
+                var petType = _dataContext.PetTypes.FirstOrDefault();
+                AddTest("Otto", owner, petType, "Shih tzu");
+                AddTest("Killer", owner, petType, "Dobermann");
+                await _dataContext.SaveChangesAsync();
+            }
+        }
+        
         private async Task CheckServiceTypesAsync()
         {
             if (!_dataContext.ServiceTypes.Any())
@@ -94,17 +142,7 @@ namespace MyVet.Web.Data
                 await _dataContext.SaveChangesAsync();
             }
         }
-
-        private async Task CheckPetTypesAsync()
-        {
-            if (!_dataContext.PetTypes.Any())
-            {
-                _dataContext.PetTypes.Add(new PetType { Name = "Perro" });
-                _dataContext.PetTypes.Add(new PetType { Name = "Gato" });
-                await _dataContext.SaveChangesAsync();
-            }
-        }
-
+        
         private async Task CheckOwnerAsync(User user)
         {
             if (!_dataContext.Owners.Any())
@@ -124,6 +162,18 @@ namespace MyVet.Web.Data
         }
 
         private void AddPet(string name, Owner owner, PetType petType, string race)
+        {
+            _dataContext.Pets.Add(new Pet
+            {
+                Born = DateTime.Now.AddYears(-2),
+                Name = name,
+                Owner = owner,
+                PetType = petType,
+                Race = race
+            });
+        }
+
+        private void AddTest(string name, Owner owner, PetType petType, string race)
         {
             _dataContext.Pets.Add(new Pet
             {

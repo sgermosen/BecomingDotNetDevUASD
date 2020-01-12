@@ -9,7 +9,7 @@ namespace MyVet.Web.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
+        public DbSet<Test> Tests { get; set; }
         public DbSet<Agenda> Agendas { get; set; }
 
         public DbSet<History> Histories { get; set; }

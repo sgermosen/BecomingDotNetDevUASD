@@ -203,7 +203,6 @@ namespace MyVet.Web.Controllers
 
             if (owner.Pets.Count > 0)
             {
-                //TODO: Message
                 return RedirectToAction(nameof(Index));
             }
 

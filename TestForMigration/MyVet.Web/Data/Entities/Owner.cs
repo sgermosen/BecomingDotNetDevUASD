@@ -9,6 +9,8 @@ namespace MyVet.Web.Data.Entities
 
         public User User { get; set; }
 
+        public string OtherField { get; set; }
+
         public ICollection<Pet> Pets { get; set; }
 
         public ICollection<Agenda> Agendas { get; set; }

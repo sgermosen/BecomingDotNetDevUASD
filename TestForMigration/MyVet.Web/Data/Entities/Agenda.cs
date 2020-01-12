@@ -13,6 +13,8 @@ namespace MyVet.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        public DateTime DateNew { get; set; }
+
         public string Remarks { get; set; }
 
         [Display(Name = "Is Available?")]

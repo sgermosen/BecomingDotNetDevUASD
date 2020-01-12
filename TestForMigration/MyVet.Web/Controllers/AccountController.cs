@@ -153,6 +153,9 @@ namespace MyVet.Web.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
+                //TODO: HERE's One Change
+                 //  await _userHelper.ConfirmEmailAsync(user, myToken);
+                //TODO: HERE's One Change comment this
                 _mailHelper.SendMail(model.Username, "Email confirmation",
                     $"<table style = 'max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;'>" +
                     $"  <tr>" +
@@ -194,7 +197,9 @@ namespace MyVet.Web.Controllers
                     $" </td >" +
                     $"</tr>" +
                     $"</table>");
+
                 ViewBag.Message = "The instructions to allow your user has been sent to email.";
+
                 return View(model);
             }
 
@@ -221,7 +226,12 @@ namespace MyVet.Web.Controllers
             }
 
             var newUser = await _userHelper.GetUserByEmailAsync(model.Username);
-            await _userHelper.AddUserToRoleAsync(newUser, "Customer");
+            //TODO: HERE's One Change, you need uncomment this and comment the other line
+            //await _userHelper.CheckRoleAsync("Admin");
+            //await _userHelper.CheckRoleAsync("Customer");
+            //await _userHelper.AddUserToRoleAsync(newUser, "Admin");
+           await _userHelper.AddUserToRoleAsync(newUser, "Customer");
+
             return newUser;
         }
 
