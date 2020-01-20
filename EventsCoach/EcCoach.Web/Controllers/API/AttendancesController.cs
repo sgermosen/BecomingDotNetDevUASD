@@ -30,7 +30,7 @@ namespace EcCoach.Web.Controllers.API
 
             var exists = _context.Attendances.Any(a => a.AttendeeId == userId && a.EventId == dto.EventId);
             if (exists)
-                return BadRequest("The attendance allready exists");
+                return BadRequest("The attendance all ready exists");
 
             var attendance = new Attendance
             {

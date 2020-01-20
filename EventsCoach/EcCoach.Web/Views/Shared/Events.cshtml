@@ -25,45 +25,7 @@
     <script>
         $(document).ready(function () {
 
-            $(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-
-                $.post("/api/followings/", { followeeId: button.attr("data-user-id") })
-                    .done(function () {
-                        button.removeClass("btn-light").addClass("btn-info").text('Following');
-                    })
-                    .fail(function () {
-                        alert("Someting fail");
-                    })
-            });
-
-            $(".js-toggle-attendance").click(function (e) {
-                var button = $(e.target);
-                if (button.hasClass("btn-default")) {
-                    $.post("api/attendances",
-                        {
-                            eventId: button.attr("data-event-id")
-                        })
-                        .done(function () {
-                            button.removeClass("btn-default").addClass("btn-info").text('Attending');
-                        })
-                        .fail(function () {
-                            alert('Something fail');
-                        });
-                }
-                else {
-                    $.ajax({
-                        url: "/api/attendances/" + button.attr("data-event-id"),
-                        method: "DELETE"
-                    })
-                        .done(function () {
-                            button.removeClass("btn-info").addClass("btn-default").text('Going?');
-                        })
-                        .fail(function () {
-                            alert('Something fail');
-                        });
-                }
-            });
+            EventsController.init();
 
         });
     </script>
