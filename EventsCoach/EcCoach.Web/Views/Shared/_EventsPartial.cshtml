@@ -31,11 +31,18 @@
                 </span>
                 @if (Model.ShowActions && !item.IsCanceled)
                 { 
-                    <button data-event-id="@item.Id" asp-route-id="@item.Id"
-                            class="btn @(Model.Attendances.Contains(item.Id) ? "btn-info": "btn-default")
+            <button data-event-id="@item.Id" asp-route-id="@item.Id"
+                    class="btn @(Model.Attendances.Contains(item.Id) ? "btn-info": "btn-default")
                             btn-sm pull-right js-toggle-attendance">
-                        Going?
-                    </button>
+                @if (Model.Attendances.Contains(item.Id))
+                {
+                    <text> Attending </text>
+                }
+                else
+                {
+                    <text> Going? </text>
+                }
+            </button>
                    
                 }
             </div>
