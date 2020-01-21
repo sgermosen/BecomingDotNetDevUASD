@@ -44,7 +44,7 @@ namespace EcCoach.Web.Controllers.API
         }
 
         [HttpDelete]
-        public IActionResult DeleteAttendance(int id)
+        public ActionResult DeleteAttendance(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
