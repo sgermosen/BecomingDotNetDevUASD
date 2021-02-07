@@ -1,4 +1,6 @@
 ﻿using EcCoach.Web.Data;
+using EcCoach.Web.Helpers;
+using EcCoach.Web.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +9,7 @@ using System.Linq;
 
 namespace EcCoach.Web.Models
 {
-    public class Event
+    public class Event : AuditEntity, ISoftDeleted
     {
 
         public int Id { get; set; }
@@ -38,7 +40,7 @@ namespace EcCoach.Web.Models
         public bool IsCanceled { get; private set; }
 
         public ICollection<Attendance> Attendances { get;  set; }
-
+        
         public Event()
         {
             Attendances = new Collection<Attendance>();
@@ -47,7 +49,7 @@ namespace EcCoach.Web.Models
         public void Cancel()
         {
             IsCanceled = true;
-            var notification = Notification.EventCanceled(this);
+              var notification = Notification.EventCanceled(this);
             foreach (var attendee in this.Attendances.Select(a => a.Attendee))
             {
                 attendee.Notify(notification);

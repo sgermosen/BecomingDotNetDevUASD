@@ -1,30 +1,25 @@
-﻿using EcCoach.Web.Models;
+﻿using EcCoach.Web.Helpers;
+using EcCoach.Web.Interfaces;
+using EcCoach.Web.Models;
+using EcCoach.Web.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EcCoach.Web.Data
 {
     public class DataContext : IdentityDbContext<ApplicationUser>
     {
-        public DataContext(DbContextOptions<DataContext> options)
+        private readonly ICurrentUserFactory _currentUser;
+
+        public DataContext(DbContextOptions<DataContext> options, ICurrentUserFactory currentUserFactory)
             : base(options)
         {
+            _currentUser = currentUserFactory;
         }
-
-        #region Properties to become tables on databases
-        public DbSet<Event> Events { get; set; }
-
-        public DbSet<Type> Types { get; set; }
-
-        public DbSet<Attendance> Attendances { get; set; }
-
-        public DbSet<Following> Followings { get; set; }
-
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<UserNotification> UserNotifications { get; set; }
-
-        #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -78,7 +73,92 @@ namespace EcCoach.Web.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             base.OnModelCreating(builder);
+            AddMyFilters(ref builder);
 
+        }
+     
+        #region Properties to become tables on databases
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<Models.Type> Types { get; set; }
+
+        public DbSet<Attendance> Attendances { get; set; }
+
+        public DbSet<Following> Followings { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
+
+        #endregion
+
+        public override int SaveChanges()
+        {
+            MakeAudit();
+            return base.SaveChanges();
+        }
+
+        public override async Task< int> SaveChangesAsync(bool accepAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            MakeAudit();
+            return await base.SaveChangesAsync(accepAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            MakeAudit();
+            return await base.SaveChangesAsync( cancellationToken);
+        }
+
+        private void MakeAudit()
+        {
+            var modifiendEntries = ChangeTracker.Entries().Where(
+                x => x.Entity is AuditEntity && (
+                x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            var transactionUser = new CurrentUser();
+
+            if (_currentUser != null)
+                transactionUser = _currentUser.Get;
+
+            foreach (var entry in modifiendEntries)
+            {
+                if(entry.Entity is AuditEntity entity)
+                {
+                    var date = DateTime.Now;
+                    string userId = transactionUser.UserId;
+                     
+                    if (entry.State == EntityState.Added)
+                    {
+                        entity.CreatedAt = date;
+                        entity.CreatedBy = userId;
+                    }
+                    else if (entity is ISoftDeleted && ((ISoftDeleted)entity).Deleted)
+                    {
+                        entity.DeletedAt = date;
+                        entity.DeletedBy = userId;
+                    }
+
+                    Entry(entity).Property(x => x.CreatedAt).IsModified = false;
+                    Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+
+                    entity.UpdatedAt = date;
+                    entity.UpdatedBy = userId;
+
+                }
+
+            }
+
+        }
+
+        private void AddMyFilters ( ref ModelBuilder modelBuilder)
+        {
+            var user = new CurrentUser();
+
+            if (_currentUser != null)
+                user = _currentUser.Get;
+
+            modelBuilder.Entity<Event>().HasQueryFilter(x => !x.Deleted);
+            
         }
     }
 }

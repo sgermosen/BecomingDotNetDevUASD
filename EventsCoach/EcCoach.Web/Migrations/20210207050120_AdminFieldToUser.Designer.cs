@@ -4,14 +4,16 @@ using EcCoach.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcCoach.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210207050120_AdminFieldToUser")]
+    partial class AdminFieldToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,17 +105,7 @@ namespace EcCoach.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(450);
 
-                    b.Property<DateTime?>("CreatedAt");
-
-                    b.Property<string>("CreatedBy");
-
                     b.Property<DateTime>("DateTime");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime?>("DeletedAt");
-
-                    b.Property<string>("DeletedBy");
 
                     b.Property<bool>("IsCanceled");
 
@@ -125,10 +117,6 @@ namespace EcCoach.Web.Migrations
 
                     b.Property<int>("TypeId");
 
-                    b.Property<DateTime?>("UpdatedAt");
-
-                    b.Property<string>("UpdatedBy");
-
                     b.Property<string>("Venue")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -137,13 +125,7 @@ namespace EcCoach.Web.Migrations
 
                     b.HasIndex("CoachId");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
                     b.HasIndex("TypeId");
-
-                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("Events");
                 });
@@ -189,8 +171,6 @@ namespace EcCoach.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -350,22 +330,10 @@ namespace EcCoach.Web.Migrations
                         .HasForeignKey("CoachId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("EcCoach.Web.Data.ApplicationUser", "CreatedUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("EcCoach.Web.Data.ApplicationUser", "DeletedUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy");
-
                     b.HasOne("EcCoach.Web.Models.Type", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("EcCoach.Web.Data.ApplicationUser", "UpdatedUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
                 });
 
             modelBuilder.Entity("EcCoach.Web.Models.Following", b =>

@@ -1,4 +1,5 @@
 ﻿using EcCoach.Web.Data;
+using EcCoach.Web.Interfaces;
 using EcCoach.Web.Models;
 using EcCoach.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -6,29 +7,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EcCoach.Web.Controllers
 {
     public class EventsController : Controller
     {
         public readonly DataContext _context;
+        private readonly ICurrentUserFactory _currentUser;
 
-        public EventsController(DataContext context)
+        public EventsController(DataContext context, ICurrentUserFactory currentUserFactory)
         {
             _context = context;
+            _currentUser = currentUserFactory;
         }
 
         [HttpPost]
         public IActionResult Cancel(int id)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+        { 
 
             var ev = _context.Events
-                             .Include(p => p.Attendances.Select(a => a.Attendee))
-                             .Single(a => a.CoachId == userId && a.Id == id);
+                            .Include(p => p.Attendances.Select(a => a.Attendee))
+                             .Single(a => a.CoachId == _currentUser.Get.UserId && a.Id == id);
 
             if (ev.IsCanceled)
                 return NotFound();
@@ -42,12 +45,23 @@ namespace EcCoach.Web.Controllers
         [Authorize]
         public ActionResult Mine()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var events = _context.Events
-            .Where(a => a.CoachId == userId && a.DateTime >= DateTime.Now && !a.IsCanceled)
+              var user = _context.Users.Find(_currentUser.Get.UserId);
+
+            List<Event> events;
+            if (user.IsAdmin)
+            {
+                events = _context.Events
+        .Where(a =>  a.DateTime >= DateTime.Now  && !a.IsCanceled)
+        .Include(p => p.Type)
+        .ToList();
+            }
+            else
+            {
+                events = _context.Events
+            .Where(a => a.CoachId == _currentUser.Get.UserId && a.DateTime >= DateTime.Now && !a.IsCanceled)
             .Include(p => p.Type)
             .ToList();
-
+            }
             return View(events);
 
         }
@@ -199,7 +213,9 @@ namespace EcCoach.Web.Controllers
                 return NotFound();
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var ev = _context.Events.Where(p => p.Id == id.Value && p.CoachId == userId).FirstOrDefault();
+            var user =  _context.Users.Find(userId);
+
+            var ev = _context.Events.Where(p => p.Id == id.Value && (p.CoachId == userId || user.IsAdmin)).FirstOrDefault();
 
             if (ev == null)
                 return NotFound();
@@ -227,10 +243,11 @@ namespace EcCoach.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user =  _context.Users.Find(userId);
 
                 var ev = _context.Events
                 .Include(g => g.Attendances).ThenInclude(a => a.Attendee).Where
-                (g => g.Id == vm.Id && g.CoachId == userId).Single();
+                (g => g.Id == vm.Id && (g.CoachId == userId || user.IsAdmin)).Single();
 
                 ev.Modify(vm.GetFullDate(), vm.Venue, vm.TypeId);
                // ev.Venue = vm.Venue;
@@ -240,7 +257,7 @@ namespace EcCoach.Web.Controllers
                 //ev.TypeId = vm.TypeId;
                 //ev.MaxCapacity = 0;
 
-                _context.SaveChanges();
+                _context.SaveChanges(); 
 
                 return RedirectToAction("Mine");
             }

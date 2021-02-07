@@ -16,6 +16,10 @@ namespace EcCoach.Web.Data
 
         public string Address { get; set; }
 
+        public bool IsAdmin { get; set; }
+
+      //  public int OwnerID { get; set; }
+
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
 
