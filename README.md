@@ -1,2 +1,2 @@
 # BecomingDotNetDevUASD
-This is a test area for the developers from summer Uasd estudents
+This is a test area for the developers from summer UASD students.
